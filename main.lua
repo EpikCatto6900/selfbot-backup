@@ -11,19 +11,7 @@ local Info = {
 
 local Ws = nil
 
-function Commands:sendMessage(channelId, message)
-    local payload = {
-        content = message,
-        tts = false
-    }
-    local headers = {
-        ["Content-Type"] = "application/json",
-        ["Authorization"] = "Bot " .. Info["token"]
-    }
-    local url = "https://discord.com/api/v10/channels/" .. channelId .. "/messages"
-    local response = game:GetService("HttpService"):PostAsync(url, Info["tojson"](payload), Enum.HttpContentType.ApplicationJson, false, headers)
-    return response
-end
+
 local Commands = {}
 
 function Commands:getcommand(content)
@@ -90,7 +78,19 @@ local Ops = {
         end 
     end,
 }
-
+function Commands:sendMessage(channelId, message)
+    local payload = {
+        content = message,
+        tts = false
+    }
+    local headers = {
+        ["Content-Type"] = "application/json",
+        ["Authorization"] = "Bot " .. Info["token"]
+    }
+    local url = "https://discord.com/api/v10/channels/" .. channelId .. "/messages"
+    local response = game:GetService("HttpService"):PostAsync(url, Info["tojson"](payload), Enum.HttpContentType.ApplicationJson, false, headers)
+    return response
+end
 function Commands:Websocket(info)
     if info["token"] then 
         Info["token"] = info["token"]
